@@ -1,0 +1,53 @@
+<app-header></app-header>
+<button type="button" class="btn btn-primary" (click)="activeAdminLogin()">Admin Login</button>
+<button type="button" class="btn btn-secondary" (click)="activeUserLogin()">User Login</button>
+
+<!--admin part-->
+<div id="formContent mt-3" *ngIf="isAdminLogin">
+    <!-- Tabs Titles -->
+    <h2 class="active"> Admin login </h2>
+
+
+    <!-- Icon -->
+    <!-- <div class="fadeIn first">
+      <img src="http://danielzawadzki.com/codepen/01/icon.svg" id="icon" alt="User Icon" />
+    </div> -->
+  
+    <!-- Login Form -->
+    <form [formGroup]="loginForm" (ngSubmit)="submitLoginForm(loginForm.value)">
+      <input type="email" id="email" class="fadeIn second" formControlName="email" name="email" placeholder="your email">
+      <input type="password" id="password" class="fadeIn third" formControlName="password" name="password" placeholder="password">
+      <button class="btn btn-outline-success my-3">Log In</button>
+    </form>
+
+<p>*note(for demo purpose) - Admin email :{{adminEmail}}</p>
+<p> Admin password :{{adminPass}}</p>
+  </div>
+
+  <!-- end admin part-->
+
+
+  <!--user part-->
+<div id="formContent mt-3" *ngIf="isUserLogin">
+    <!-- Tabs Titles -->
+    <h2 class="active"> User login </h2>
+
+
+    <!-- Icon -->
+    <!-- <div class="fadeIn first">
+      <img src="http://danielzawadzki.com/codepen/01/icon.svg" id="icon" alt="User Icon" />
+    </div> -->
+  
+    <!-- Login Form -->
+    <form [formGroup]="userLoginForm" (ngSubmit)="userSubmitLoginForm(userLoginForm.value)">
+      <input type="email" id="email" class="fadeIn second" formControlName="email" name="email" placeholder="your email">
+      <input type="password" id="password" class="fadeIn third" formControlName="password" name="password" placeholder="password">
+      <button class="btn btn-outline-success my-3">Log In</button>
+    </form>
+
+<p>*note(for demo purpose) - User email :{{userEmail}}</p>
+<p> User password :{{userPass}}</p>
+
+  </div>
+
+  <!-- end admin part-->

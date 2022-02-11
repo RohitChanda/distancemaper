@@ -52,15 +52,19 @@ module.exports.handelDistance = async (req, res) => {
     
     try {
         const cityName = req.body.city.toLowerCase();
-        const adminCity = "delhi";
-        console.log(cityName);
-        // const geoUser=await getMyGeoLocation(cityName) ;
-        const geoUser = { lat: 22.5414185, lng: 88.3576912 };
-        //   const geoAdmin=await getMyGeoLocation(adminCity);
-        const geoAdmin = { lat: 28.6517178, lng: 77.2219388 };
+        // const adminCity = "delhi";
+        const admin = await Admin.find().select({defaultcity:1});
+        // console.log(admin)
+        const adminCity=admin[0].defaultcity;
+        const geoUser=await getMyGeoLocation(cityName) ;
+        //  const geoUser = { lon: 88.3697, lat: 22.5697 }
+
+          const geoAdmin=await getMyGeoLocation(adminCity);
+        //  const geoAdmin = { lon: 88.3103, lat: 22.5892 };
+      
         
-        const dis=findDistance(geoUser, geoAdmin);
-        console.log("distance in KM : "+dis);
+       const dis=findDistance(geoUser, geoAdmin);
+        console.log("distance between "+cityName+" and "+ adminCity+" is : "+dis+" km")
         let result_flag;
         if(dis<100){
             result_flag="yes"
@@ -89,7 +93,7 @@ const getMyGeoLocation = (city) => {
     var https = require('https');
 
     return new Promise((resolve, reject) => {
-        let url = 'https://api.opencagedata.com/geocode/v1/json?q=' + city + '&key=17be87cb887d4d5bb58bbc95be2027d8';
+        let url = 'https://api.openweathermap.org/data/2.5/weather?q='+city+'&appid=2adaafa488906b9f62a0d75c7680c0c9&units=metric';
         https.get(url, (res) => {
             let error;
             if (error) {
@@ -102,7 +106,9 @@ const getMyGeoLocation = (city) => {
             });
             res.on('end', () => {
                 try {
-                    const parsedData = JSON.parse(data).results[0].geometry;
+                    const parsedData = JSON.parse(data).coord;
+                    // console.log("from get lat");
+                    // console.log(parsedData);
                     resolve(parsedData);
                 } catch (e) {
                     reject(e.message);
@@ -116,11 +122,14 @@ const getMyGeoLocation = (city) => {
 }
 const findDistance = (geoUser, geoAdmin) => {
     //use haversine formula to find the distance
+    console.log("from finddistance");
+    console.log(geoUser);
+    console.log(geoAdmin);
     const lat1 = geoUser.lat * Math.PI / 180
-    const lon1 = geoUser.lng * Math.PI / 180;
-
+    const lon1 = geoUser.lon * Math.PI / 180;
+// console.log(lat1)
     const lat2 = geoAdmin.lat * Math.PI / 180
-    const lon2 = geoAdmin.lng * Math.PI / 180;
+    const lon2 = geoAdmin.lon * Math.PI / 180;
     
     // console.log(d)
    
@@ -151,6 +160,9 @@ const findDistance = (geoUser, geoAdmin) => {
 // AIzaSyDVraJIh6Q4LVKTzYPnSKmJZIvgZNo_QGQ
 
 /*
+
+Math.sqrt( Math.pow((x1-x2), 2) + Math.pow((y1-
+y2), 2) );
 api
 https://api.opencagedata.com/geocode/v1/json?key=17be87cb887d4d5bb58bbc95be2027d8&q=kolkata&pretty=1
 
@@ -160,4 +172,12 @@ https://api.opencagedata.com/geocode/v1/json?q=kolkata&key=17be87cb887d4d5bb58bb
 
 backward--
 https://api.opencagedata.com/geocode/v1/json?q=LAT+LNG&key=17be87cb887d4d5bb58bbc95be2027d8
+*/
+
+
+
+/*
+forward
+https://api.openweathermap.org/data/2.5/weather?q=kolkata&appid=2adaafa488906b9f62a0d75c7680c0c9&units=metric
+
 */
