@@ -23,7 +23,7 @@ export class AdmindashComponent implements OnInit {
   }
 
   submitDefCity(defaultCityForm){
-    console.log(defaultCityForm)
+
     this.dataService.addDefultCity(defaultCityForm).subscribe((res)=>{
       if(res.success){
         alert(res.data);

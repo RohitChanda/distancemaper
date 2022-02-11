@@ -27,7 +27,6 @@ export class UserdashComponent implements OnInit {
     this.dataService.handelcheckDistance(userCityForm).subscribe((res)=>{
       if(res.success){
         this.result_flag=res.flag;
-        console.log("flag is:"+this.result_flag)
         this.isflag=true;
       }
     })

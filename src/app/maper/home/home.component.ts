@@ -51,11 +51,8 @@ export class HomeComponent implements OnInit {
   }
 
   submitLoginForm(loginForm){//admin
-    console.log("admin form")
-   
     this.dataService.adminLogin(loginForm).subscribe((res)=>{
       if(res.success){
-        console.log(res.email);
         localStorage.setItem('d_email',res.email);
         this.router.navigate(['/admin']);
       }
@@ -64,15 +61,12 @@ export class HomeComponent implements OnInit {
 
   }
   userSubmitLoginForm(userLoginForm){//user
-    console.log("user form")
-    console.log(userLoginForm)
     this.dataService.userlogin(userLoginForm).subscribe((res)=>{
       if(res.success){
-        console.log(res.email);
         localStorage.setItem('d_email',res.email);
         this.router.navigate(['/user']);
       }
-      alert(res.data)
+      alert(res.data);
     });
   }
 
