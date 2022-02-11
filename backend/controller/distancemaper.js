@@ -111,10 +111,8 @@ const getMyGeoLocation = (city) => {
     });
 }
 const findDistance = (geoUser, geoAdmin) => {
-    //use haversine formula to find the distance
-    console.log("from finddistance");
-    console.log(geoUser);
-    console.log(geoAdmin);
+  
+  
     const lat1 = geoUser.lat * Math.PI / 180
     const lon1 = geoUser.lon * Math.PI / 180;
 
