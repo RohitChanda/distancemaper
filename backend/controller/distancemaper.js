@@ -1,7 +1,6 @@
 require('../db/db');//add db file
 const User=require('../model/User');
 const Admin=require('../model/Admin');
-
 module.exports.addAdminCity=async(req,res)=>{
     try {
         const {email,city}=req.body;
