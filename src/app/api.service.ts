@@ -26,4 +26,10 @@ export class ApiService {
   handelcheckDistance(userCityForm){
     return this.httpClient.post<any>(this.baseUrl + '/finddistance',userCityForm);
   }
+  authGuard(){
+    if(!localStorage.getItem('d_email')){
+      this.router.navigate(['/']);
+      alert("You are not logged in")
+    }
+  }
 }

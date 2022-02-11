@@ -19,6 +19,7 @@ export class AdmindashComponent implements OnInit {
     }
 
   ngOnInit(): void {
+    this.dataService.authGuard();
   }
 
   submitDefCity(defaultCityForm){

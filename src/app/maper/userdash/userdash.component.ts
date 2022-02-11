@@ -20,6 +20,7 @@ export class UserdashComponent implements OnInit {
     }
 
   ngOnInit(): void {
+    this.dataService.authGuard();
   }
 
   checkDistance(userCityForm){
